@@ -3,7 +3,6 @@ import { Links } from "../LinkData";
 import { NavLink } from "react-router-dom";
 
 const NavLinks = () => {
-  console.log(Links);
   return (
     <>
       {Links.map((data) => {  
