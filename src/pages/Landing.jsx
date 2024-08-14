@@ -5,7 +5,7 @@ import {FeaturedProducts} from "../components"
 
 
 export const loader = async ()=>{
-  const dataSet = await CustomUri("/products");
+  const dataSet = await CustomUri("/products?featured=true");
   const products = dataSet.data.data;
   console.log(products);
   return {products};

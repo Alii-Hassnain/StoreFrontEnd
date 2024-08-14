@@ -12,7 +12,8 @@ import {
   Register,
   SingleProduct,
 } from "./pages";
-import { loader as LandingLoader } from "./pages/Landing";
+import { loader as LandingLoader } from "./pages/Landing.jsx";
+import { loader as SingleProductLoader } from "./pages/SingleProduct.jsx";
 import { ErrorElement } from "./components";
 
 import {
@@ -44,7 +45,9 @@ const router = createBrowserRouter(
         },
         {
           path:"singleproduct",
-          element:<SingleProduct/>
+          element:<SingleProduct/>,
+          errorElement:<ErrorElement/>,
+          loader:SingleProductLoader
         },
         {
           path:"cart",

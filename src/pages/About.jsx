@@ -6,6 +6,7 @@ const About = () => {
       <div className="text-4xl tracking-tighter font-bold sm:text-6xl">
         <h1>
           We Love 
+          
           <span className="bg-primary text-primary-content px-2 rounded-lg">
            Comfy
           </span>

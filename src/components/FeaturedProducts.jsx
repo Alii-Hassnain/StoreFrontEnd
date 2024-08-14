@@ -6,9 +6,9 @@ const FeaturedProducts = () => {
   return (
     <div>
         <SectionTitle text = "Featured Products"/>
-        <div>
-            <ProductsGrid/>
-        </div>
+        
+        <ProductsGrid/>
+        
     </div>
   )
 }
