@@ -6,14 +6,8 @@ const ProductsGrid = () => {
   const { products } = useLoaderData();
   console.log(products);
 
-  const featuredProducts = products.filter(
-    (product) => product.attributes.featured === true
-  );
-
-  console.log(featuredProducts);
-
   return (
-    <div className="grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-col-1 gap-y-2 mb-10">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
       {products.map((data) => {
         const { title, price, image } = data.attributes;
         const dollarAmount = price / 100;
@@ -24,7 +18,7 @@ const ProductsGrid = () => {
             className="card cursor-pointer bg-base-100 h-96 hover:shadow-2xl shadow-xl transition duration-300"
           >
             <figure className="px-8 pt-8">
-              <img className="rounded-xl" src={image} alt={title} />
+              <img className="rounded-xl h-96 w-96 object-cover" src={image} alt={title} />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">{title}</h2>
