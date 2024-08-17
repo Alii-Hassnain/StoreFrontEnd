@@ -3,6 +3,7 @@ import { CustomUri } from "../utils";
 import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { SubmitBtn } from "../components";
+import { useDispatch } from "react-redux";
 
 export const loader = async ({ params }) => {
   const URL = `/products/${19}`;
@@ -14,15 +15,32 @@ export const loader = async ({ params }) => {
 const SingleProduct = () => {
   const [amount, setAmount] = useState(1);
   const { singleProduct } = useLoaderData();
+  
+  const dispatch = useDispatch();
+  const cartProduct = {
+    cartID: product.id + productColor,
+    productID: product.id,
+    image,
+    title,
+    price,
+    amount,
+    productColor,
+    company,
+  };
+
+  const addToCart = () => {
+    dispatch(addItem({ product: cartProduct }));
+  };
+
 
   const { image, title, price, description, colors, company } =
     singleProduct.attributes;
   const [productColor, setProductColor] = useState(colors[0]);
   console.log(singleProduct);
 
-  const handleAmount = (e)=>{
-    setAmount(e.target.value)
-  }
+  const handleAmount = (e) => {
+    setAmount(e.target.value);
+  };
   return (
     <div className="mt-40">
       <div className="breadcrumbs text-sm">
@@ -76,10 +94,11 @@ const SingleProduct = () => {
               <div className="label">
                 <span className="label-text text-2xl">Amount</span>
               </div>
-              <select 
-              value={amount}
-              onChange={handleAmount}
-              className="select select-secondary select-md select-bordered w-full max-w-xs">
+              <select
+                value={amount}
+                onChange={handleAmount}
+                className="select select-secondary select-md select-bordered w-full max-w-xs"
+              >
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -87,7 +106,9 @@ const SingleProduct = () => {
             </label>
 
             <div className="w-1/4">
-              <SubmitBtn text="ADD TO BAG" />
+              <button className="btn btn-secondary btn-md" onClick={addToCart}>
+                Add to bag
+              </button>
             </div>
           </div>
         </div>

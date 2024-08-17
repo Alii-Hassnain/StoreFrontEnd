@@ -7,9 +7,9 @@ import { BsList } from "react-icons/bs";
 import SectionTitle from "./SectionTitle";
 
 const ProductsContainer = () => {
-  const { response } = useLoaderData();
+  const { products,meta } = useLoaderData();
   const [ layout, setLayout ] = useState("");
-  const totalProducts = response.data.meta.pagination.total;
+  const totalProducts = meta.pagination.total;
 
   const setActiveStyle = (pattern) => {
     return `text-xl btn btn-circle ${pattern === layout ? "btn-primary text-primary-content":"btn-ghost text-base-content"}`

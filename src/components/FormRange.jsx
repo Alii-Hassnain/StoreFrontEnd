@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { formatPrice } from "../utils";
+import { useLoaderData } from "react-router-dom";
 
-const FormRange = ({ label, name, size }) => {
+const FormRange = ({ label, name, size,defaultValue }) => {
+  const {meta} = useLoaderData();
+  
   const step = 1000;
   const maxPrice = 100000;
-  const [selectedPrice, setSelectedPrice] = useState(maxPrice);
+  const [selectedPrice, setSelectedPrice] = useState(defaultValue || maxPrice);
 
   return (
     <>
@@ -18,7 +21,8 @@ const FormRange = ({ label, name, size }) => {
           min={0}
           max={maxPrice}
           name={name}
-          value={selectedPrice}
+          defaultValue={defaultValue}
+          
           onChange={(e) => setSelectedPrice(e.target.value)}
           className={`range range-primary ${size}`}
         />

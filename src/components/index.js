@@ -11,3 +11,6 @@ export {default as ProductContainer} from "./ProductsContainer"
 export {default as PaginationContainer} from "./PaginationContainer"
 export {default as Filter} from "./Filters"
 export {default as ProductsList} from "./ProductsList"
+
+
+export {default as Loading} from "./Loading"
