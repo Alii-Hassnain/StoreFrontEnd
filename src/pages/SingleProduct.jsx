@@ -4,22 +4,33 @@ import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { SubmitBtn } from "../components";
 import { useDispatch } from "react-redux";
+import { formatPrice } from "../utils";
+import { addItem } from "../features/cart/cartSlice";
+import { toast} from "react-toastify";
 
 export const loader = async ({ params }) => {
-  const URL = `/products/${19}`;
+  const URL = `/products/${params.id}`;
   const response = await CustomUri(URL);
   const singleProduct = response.data.data;
   return { singleProduct };
 };
 
 const SingleProduct = () => {
+
   const [amount, setAmount] = useState(1);
   const { singleProduct } = useLoaderData();
-  
+
+  const { image, title, price:p, description, colors, company } =
+    singleProduct.attributes;
+  const price = formatPrice(p);
+
+  const [productColor, setProductColor] = useState(colors[0]);
+  console.log(singleProduct);
+
   const dispatch = useDispatch();
   const cartProduct = {
-    cartID: product.id + productColor,
-    productID: product.id,
+    cartID: singleProduct.id + productColor,
+    productID: singleProduct.id,
     image,
     title,
     price,
@@ -30,13 +41,11 @@ const SingleProduct = () => {
 
   const addToCart = () => {
     dispatch(addItem({ product: cartProduct }));
+    toast.play("hy")
   };
 
 
-  const { image, title, price, description, colors, company } =
-    singleProduct.attributes;
-  const [productColor, setProductColor] = useState(colors[0]);
-  console.log(singleProduct);
+  
 
   const handleAmount = (e) => {
     setAmount(e.target.value);
@@ -69,7 +78,7 @@ const SingleProduct = () => {
           <h2 className="text-xl text-neutral-content font-bold mt-2">
             {company}
           </h2>
-          <h1 className="text-xl">${price / 100}</h1>
+          <h1 className="text-xl">{price}</h1>
           <p className="leading-8">{description}</p>
           <div className="flex flex-col gap-4">
             <h1 className="text-md font-medium tracking-wider capitalize">
@@ -114,6 +123,8 @@ const SingleProduct = () => {
         </div>
         {/* end */}
       </div>
+        
+
     </div>
   );
 };

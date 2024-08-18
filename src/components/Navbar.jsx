@@ -6,11 +6,18 @@ import { NavLink, Link } from "react-router-dom";
 import { FaBarsStaggered } from "react-icons/fa6";
 import NavLinks from "./NavLinks.jsx";
 
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
+
   const [theme,setTheme] = useState(false);
   const handleTheme = ()=>{
     setTheme(!theme);
   }
+
+  const {numItemsInCart} = useSelector((state)=>state.cart)
+ 
+
 
   return (
     <nav className="bg-base-200">
@@ -54,7 +61,7 @@ const Navbar = () => {
             <div className="indicator">
               <BsCart3 className="text-2xl" />
               <span className="badge badge-sm badge-primary indicator-item">
-                8
+                {numItemsInCart}
               </span>
             </div>
           </NavLink>
