@@ -20,10 +20,9 @@ const SingleProduct = () => {
   const [amount, setAmount] = useState(1);
   const { singleProduct } = useLoaderData();
 
-  const { image, title, price:p, description, colors, company } =
+  const { image, title, price, description, colors, company } =
     singleProduct.attributes;
-  const price = formatPrice(p);
-
+    
   const [productColor, setProductColor] = useState(colors[0]);
   console.log(singleProduct);
 
@@ -41,7 +40,7 @@ const SingleProduct = () => {
 
   const addToCart = () => {
     dispatch(addItem({ product: cartProduct }));
-    toast.play("hy")
+
   };
 
 

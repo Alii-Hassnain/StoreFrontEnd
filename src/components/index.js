@@ -14,3 +14,7 @@ export {default as ProductsList} from "./ProductsList"
 
 
 export {default as Loading} from "./Loading"
+export {default as CartItemsList} from "./CartItemsList"
+export {default as CartTotals } from "./CartTotals"
+
+export {default as SectionTitle} from "./SectionTitle"
