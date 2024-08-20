@@ -18,15 +18,15 @@ const CartTotals = () => {
             <p>{formatPrice(cartTotal)}</p>
         </div>
         <div className="flex flex-row">
-            <p>tax</p>
+            <p>Tax</p>
             <p>{formatPrice(tax)}</p>
         </div>
         <div className="flex flex-row">
-            <p>shipping </p>
+            <p>Shipping </p>
             <p>{formatPrice(shipping)}</p>
         </div>
-        <div className="flex flex-row">
-            <p>orderTotal </p>
+        <div className="flex flex-row mt-4">
+            <p>OrderTotal </p>
             <p>{formatPrice(orderTotal)}</p>
         </div>
         
