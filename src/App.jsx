@@ -18,6 +18,10 @@ import { loader as ProductsLoader } from "./pages/Products.jsx";
 import { ErrorElement } from "./components";
 import { ToastContainer } from "react-toastify";
 
+import {action as loginAction} from "./pages/Login";
+import { store } from "./store.js";
+
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -70,6 +74,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
+    action:loginAction(store),
   },
   {
     path: "/register",

@@ -2,6 +2,25 @@ import React from 'react'
 import {Link,Form} from "react-router-dom"
 import { FormInput } from '../components'
 import { SubmitBtn } from '../components'
+import { redirect } from 'react-router-dom'
+import { CustomUri } from '../utils'
+import { toast } from 'react-toastify'
+
+
+const action = async ({request})=>{
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try{
+    const reponse = await CustomUri.post("/auth/local/register",data);
+    toast.success("account created successfully");
+    return redirect("/login");
+  } catch(error){
+    const errorMessage = error?.response?.data?.error?.message || "Please double check your credential";
+    toast.error(errorMessage);
+    return null;
+  }
+}
+
 
 const Register = () => {
   return (

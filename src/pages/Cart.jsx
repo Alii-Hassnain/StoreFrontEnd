@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const user = null;
+  const user = useSelector((state) => state.user);
   const [itemsInCart, setItemsInCart] = useState();
   const { numItemsInCart } = useSelector((state) => state.cart);
+
   console.log(numItemsInCart);
 
   if (numItemsInCart === 0) {
