@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { MdToken } from "react-icons/md";
 import { toast } from "react-toastify";
 
+const getUserFromLocalStorage = ()=>{
+  return JSON.parse(localStorage.getItem("user")) || null;
+}
+
+
 const inititalState = {
-  user: {
-    userName:"coding addict"
-  },
-  theme: "dracula",
+  user: getUserFromLocalStorage(),
+  // theme: "dracula",
 };
 
 const userSlice = createSlice({
@@ -13,7 +17,11 @@ const userSlice = createSlice({
   initialState: inititalState,
   reducers: {
     loginUser: (state, action) => {
-      console.log("login");
+      const {user,jwt } = action.payload;
+      state.user = {...user,token:jwt};   
+      console.log(state.user);
+      
+      localStorage.setItem("user",JSON.stringify(user));
     },
     logoutUser: (state, action) => {
         state.user = null;

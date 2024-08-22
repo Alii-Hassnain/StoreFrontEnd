@@ -7,7 +7,7 @@ import { CustomUri } from '../utils'
 import { toast } from 'react-toastify'
 
 
-const action = async ({request})=>{
+export const action = async ({request})=>{
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try{

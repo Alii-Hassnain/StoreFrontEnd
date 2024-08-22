@@ -19,6 +19,7 @@ import { ErrorElement } from "./components";
 import { ToastContainer } from "react-toastify";
 
 import {action as loginAction} from "./pages/Login";
+import {action as registerAction} from "./pages/Register"
 import { store } from "./store.js";
 
 
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
     errorElement: <Error />,
+    action:registerAction,
   },
 ]);
 
