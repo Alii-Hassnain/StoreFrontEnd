@@ -15,13 +15,15 @@ import {
 import { loader as LandingLoader } from "./pages/Landing.jsx";
 import { loader as SingleProductLoader } from "./pages/SingleProduct.jsx";
 import { loader as ProductsLoader } from "./pages/Products.jsx";
+
 import { ErrorElement } from "./components";
 import { ToastContainer } from "react-toastify";
 
-import {action as loginAction} from "./pages/Login";
-import {action as registerAction} from "./pages/Register"
-import { store } from "./store.js";
+import { action as loginAction } from "./pages/Login";
+import { action as registerAction } from "./pages/Register";
+import { action as checkOutAction} from "./pages/Checkout.jsx";
 
+import { store } from "./store.js";
 
 import {
   createBrowserRouter,
@@ -64,6 +66,8 @@ const router = createBrowserRouter([
       {
         path: "checkout",
         element: <Checkout />,
+        errorElement: <ErrorElement />,
+        action:checkOutAction(store)
       },
       {
         path: "orders",
@@ -75,13 +79,13 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
-    action:loginAction(store),
+    action: loginAction(store),
   },
   {
     path: "/register",
     element: <Register />,
     errorElement: <Error />,
-    action:registerAction,
+    action: registerAction,
   },
 ]);
 
