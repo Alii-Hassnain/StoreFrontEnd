@@ -8,6 +8,7 @@ import { formatPrice } from "../utils";
 import { addItem } from "../features/cart/cartSlice";
 import { toast} from "react-toastify";
 
+
 export const loader = async ({ params }) => {
   const URL = `/products/${params.id}`;
   const response = await CustomUri(URL);
@@ -77,7 +78,7 @@ const SingleProduct = () => {
           <h2 className="text-xl text-neutral-content font-bold mt-2">
             {company}
           </h2>
-          <h1 className="text-xl">{price}</h1>
+          <h1 className="text-xl">{formatPrice(price)}</h1>
           <p className="leading-8">{description}</p>
           <div className="flex flex-col gap-4">
             <h1 className="text-md font-medium tracking-wider capitalize">

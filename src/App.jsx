@@ -15,6 +15,7 @@ import {
 import { loader as LandingLoader } from "./pages/Landing.jsx";
 import { loader as SingleProductLoader } from "./pages/SingleProduct.jsx";
 import { loader as ProductsLoader } from "./pages/Products.jsx";
+import {loader as CheckOutLoader } from "./pages/Checkout.jsx";
 
 import { ErrorElement } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -67,7 +68,8 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <Checkout />,
         errorElement: <ErrorElement />,
-        action:checkOutAction(store)
+        action:checkOutAction(store),
+        loader:CheckOutLoader(store)
       },
       {
         path: "orders",

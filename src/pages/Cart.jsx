@@ -27,11 +27,11 @@ const Cart = () => {
       </div>
       <div className="flex flex-col gap-4">
         <CartTotals />
-        <button className="btn btn-primary">
-          <Link to="/checkout" className="inline">
+          <Link to="/checkout">
+        <button className="btn btn-primary w-full">
             Proceed to checkout
-          </Link>
         </button>
+          </Link>
       </div>
     </div>
   );
