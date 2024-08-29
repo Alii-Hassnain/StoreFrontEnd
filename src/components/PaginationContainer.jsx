@@ -28,6 +28,58 @@ const PaginationContainer = () => {
 
   };
 
+  const addPageButton = ({ pageNumber, activeClass }) => {
+    return (
+      <button
+        key={pageNumber}
+        onClick={() => handlePageChange(pageNumber)}
+        className={`btn btn-xs sm:btn-md border-none join-item ${
+          activeClass ? "bg-base-300 border-base-300 " : ""
+        }`}
+      >
+        {pageNumber}
+      </button>
+    );
+  };
+  const renderPageButtons = () => {
+    const pageButtons = [];
+    // first button
+    pageButtons.push(addPageButton({ pageNumber: 1, activeClass: page === 1 }));
+
+    // dots
+    if (page > 2) {
+      pageButtons.push(
+        <button className="join-item btn btn-xs sm:btn-md" key="dots-1">
+          ...
+        </button>
+      );
+    }
+
+    // active/current page
+    if (page !== 1 && page !== pageCount) {
+      pageButtons.push(addPageButton({ pageNumber: page, activeClass: true }));
+    }
+    // dots
+    if (page < pageCount - 1) {
+      pageButtons.push(
+        <button className="join-item btn btn-xs sm:btn-md" key="dots-2">
+          ...
+        </button>
+      );
+    }
+
+    // last button
+    pageButtons.push(
+      addPageButton({ pageNumber: pageCount, activeClass: page === pageCount })
+    );
+    return pageButtons;
+  };
+
+
+
+
+
+
   if(pageCount < 2) return null;
 
   return (
@@ -42,21 +94,7 @@ const PaginationContainer = () => {
         >
           Prev  
         </button>
-        {
-          pages.map((pageNumber)=>{
-            return (
-              <button
-                onClick={()=> handlePageChange(pageNumber)}
-                key={pageNumber}
-                className={`btn btn-xs sm:btn-md border-none join-item ${
-                  pageNumber === page ? "bg-blue-500 text-white" : ""
-                }`}
-              >
-                {pageNumber}
-              </button>
-            )
-          })
-        } 
+        {renderPageButtons()}
 
         <button
           className='btn btn-xs sm:btn-md joint-item'
