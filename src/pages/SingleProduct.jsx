@@ -7,14 +7,33 @@ import { useDispatch } from "react-redux";
 import { formatPrice } from "../utils";
 import { addItem } from "../features/cart/cartSlice";
 import { toast} from "react-toastify";
+import { QueryClient } from "@tanstack/react-query";
 
 
-export const loader = async ({ params }) => {
-  const URL = `/products/${params.id}`;
-  const response = await CustomUri(URL);
-  const singleProduct = response.data.data;
-  return { singleProduct };
+// export const loader = async ({ params }) => {
+//   const URL = `/products/${params.id}`;
+//   const response = await CustomUri(URL);
+//   const singleProduct = response.data.data;
+//   return { singleProduct };
+// };
+
+const singleProductQuery = (id) =>{
+  return{
+    queryKey:["singleProduct",id],
+    queryFn : () => CustomUri.get(`/products/${id}`),
+  };
 };
+
+export const loader = (queryClient) => async ({params}) => {
+  const response = await queryClient.ensureQueryData(
+    singleProductQuery(params.id)
+  );
+  return {singleProduct : response.data.data};
+};
+
+
+
+
 
 const SingleProduct = () => {
 

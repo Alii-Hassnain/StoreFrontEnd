@@ -20,7 +20,7 @@ export const loader = (store) => () => {
 };
 
 export const action =
-  (store) =>
+  (store,queryClient) =>
   async ({ request }) => {
     const formData = await request.formData();
     const { name, address } = Object.fromEntries(formData);
@@ -52,6 +52,11 @@ export const action =
           },
         }
       );
+      //remove query
+      queryClient.removeQueries(['orders']);
+
+      
+      //rest of the code
       store.dispatch(clearCart());
       toast.success("order placed successfully");
       return redirect("/orders");

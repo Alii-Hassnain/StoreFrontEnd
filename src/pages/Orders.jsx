@@ -7,7 +7,69 @@ import { redirect } from 'react-router-dom'
 import { useLoaderData } from 'react-router-dom'
 
 
-export const loader =(store) => async ({request})=>{
+// export const loader =(store) => async ({request})=>{
+
+//   const user = store.getState().user.user;
+//   if(!user){
+//     toast.warn("You must be logged in to view orders");
+//     return redirect("/login");
+//   }
+
+//   const params = Object.fromEntries([
+//     ...new URL(request.url).searchParams.entries(),
+//   ]);
+//   try {
+//     const response = await CustomUri.get("/orders",{
+//       params,
+//       headers:{
+//         Authorization:`Bearer ${user.token}`,
+//       }
+//     });
+    
+//     return {
+//       orders:response.data.data,
+//       meta:response.data.meta,
+//     };
+
+
+
+//   } catch (error) {
+//     console.log(error);
+//     const errorMessage = error?.reponse?.data?.error?.message ||
+//     "there was an error accessing your orders";
+
+//   }
+// }
+
+
+export const ordersQuery = (params,user) => {
+  return {
+    queryKey: [
+      "orders",
+      user.username,
+      params.page ? parseInt(params.page) : 1,
+    ],
+    queryFn: () =>
+    {
+
+     return CustomUri.get("/orders",{
+        params,
+        headers:{
+          Authorization:`Bearer ${user.token}`,
+        },
+      })
+    }
+    
+    
+  }
+}
+
+
+
+
+
+
+export const loader =(store , queryClient) => async ({request})=>{
 
   const user = store.getState().user.user;
   if(!user){
@@ -18,21 +80,19 @@ export const loader =(store) => async ({request})=>{
   const params = Object.fromEntries([
     ...new URL(request.url).searchParams.entries(),
   ]);
+
+  console.log(params);
+  console.log(user);
+  
   try {
-    const response = await CustomUri.get("/orders",{
-      params,
-      headers:{
-        Authorization:`Bearer ${user.token}`,
-      }
-    });
-    
+    const response = await queryClient.ensureQueryData(
+      ordersQuery(params,user)
+    );
+    console.log(response);
     return {
       orders:response.data.data,
       meta:response.data.meta,
     };
-
-
-
   } catch (error) {
     console.log(error);
     const errorMessage = error?.reponse?.data?.error?.message ||

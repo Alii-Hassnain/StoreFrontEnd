@@ -33,6 +33,23 @@ import {
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
+
+
+import {QueryClient,QueryClientProvider} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { FaLeaf } from "react-icons/fa";
+
+
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +60,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Landing />,
         errorElement: <ErrorElement />,
-        loader: LandingLoader,
+        loader: LandingLoader(queryClient),
       },
       {
         path: "about",
@@ -53,13 +70,13 @@ const router = createBrowserRouter([
         path: "products",
         element: <Products />,
         errorElement: <ErrorElement />,
-        loader: ProductsLoader,
+        loader: ProductsLoader(queryClient),
       },
       {
         path: "products/:id",
         element: <SingleProduct />,
         errorElement: <ErrorElement />,
-        loader: SingleProductLoader,
+        loader: SingleProductLoader(queryClient),
       },
       {
         path: "cart",
@@ -69,13 +86,13 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <Checkout />,
         errorElement: <ErrorElement />,
-        action:checkOutAction(store),
+        action:checkOutAction(store,queryClient),
         loader:CheckOutLoader(store)
       },
       {
         path: "orders",
         element: <Orders />,
-        loader:OrdersLoader(store),
+        loader:OrdersLoader(store,queryClient),
       },
     ],
   },
@@ -96,7 +113,10 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen = {false} />
+    </QueryClientProvider>
     </>
   );
 };

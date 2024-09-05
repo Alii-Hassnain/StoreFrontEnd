@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 
 const ProductsGrid = () => {
   const { products } = useLoaderData();
+  if(!products){
+    console.log("there are no products..");
+  }else{
+    console.log("Products are available...");
+  }
   console.log(products);
 
   return (
